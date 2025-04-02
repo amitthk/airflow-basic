@@ -1,0 +1,9 @@
+Pillow
+pymongo[srv]
+authlib
+pyodbc
+psycopg2
+pyhive[hive]
+cx-Oracle
+mssql
+mysqlclient
