@@ -14,6 +14,9 @@ USER root
 RUN apt-get update && apt-get install -y \
     unzip libaio1 curl gcc
 
+RUN apt-get install -y zip unzip libaio1 libmariadb-dev pkg-config build-essential libpq-dev
+
+
 # Copy and install Oracle Instant Client
 COPY install_oracle_client.sh ${AIRFLOW_HOME}/install_oracle_client.sh
 #COPY ${INSTANT_CLIENT_ZIP} ${AIRFLOW_HOME}/${INSTANT_CLIENT_ZIP}
@@ -32,9 +35,9 @@ RUN chmod +x ${AIRFLOW_HOME}/entrypoint.sh
 USER airflow
 
 # Install Python dependencies
-COPY requirements-local.txt /tmp/requirements-local.txt
-RUN pip install --upgrade pip && \
-    pip install -r /tmp/requirements-local.txt
+COPY requirements.txt /tmp/requirements.txt
+RUN python -m pip install --upgrade pip setuptools && \
+    pip install -r /tmp/requirements.txt
 
 
 # Set Airflow working directory and entrypoint
